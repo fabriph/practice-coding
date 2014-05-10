@@ -1,0 +1,6 @@
+Using a calculator.
+
+Every possible path of this problem includes
+20 R(right steps) and 20 D(down steps)
+To compute all solutions, permutate those 20 R and 20 D.
+40 Comb 20 * 20 Comb 20

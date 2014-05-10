@@ -1,0 +1,6 @@
+"""python"""
+sum = 0
+for n in str(math.factorial(100)):
+	sum = sum + int(n)
+ 
+print sum
