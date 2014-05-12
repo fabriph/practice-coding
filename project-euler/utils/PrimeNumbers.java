@@ -96,19 +96,21 @@ public class PrimeNumbers {
 			7867, 7873, 7877, 7879, 7883, 7901, 7907, 7919 };
 
 	public static long[] getPrimesUntil(long max) {
-		// TODO make this dynamic, and calc more primes if max is greater thatn
-		// the already calculated
+		// TODO make this dynamic, and calc more primes if max is greater than
+		// the already calculated.
 		// TODO maybe in a future if needed, we can implement a Cache, to store
-		// previos primes calculated... Or just download a very big colection of
-		// primes from the internet and hardcode them
+		// previous primes calculated, maybe in a data file... Or just download
+		// a very big collection of primes from the Internet and hardcode them
 		if (max > 7920) {
 			throw new RuntimeException(
 					"PrimerNumbers.getPrimesUntil(max) not yet supported for that max.");
 		}
+		// TODO maybe this should return the primes up to that value, and
+		// nothing else
 		return PrimeNumbers.first1000primes;
 	}
 
-	public static List<Number> calcPrimeFactorsJoinRepeated(long number) {
+	private static List<Number> getPrimeFactorsAsExponentNumbers(long number) {
 		List<Number> factors = new LinkedList<Number>();
 		long sqrt = (long) Math.sqrt(number) + 1;
 		long[] primes = PrimeNumbers.getPrimesUntil(sqrt);
@@ -126,7 +128,8 @@ public class PrimeNumbers {
 		return factors;
 	}
 
-	public static List<Long> calcPrimeFactors(long number) {
+	// TODO this method is not currently used
+	private static List<Long> getPrimeFactors(long number) {
 		List<Long> factors = new LinkedList<Long>();
 		long sqrt = (long) Math.sqrt(number) + 1;
 		long[] primes = PrimeNumbers.getPrimesUntil(sqrt);
@@ -144,7 +147,7 @@ public class PrimeNumbers {
 			return 1;
 		}
 		List<Number> primeFactors = PrimeNumbers
-				.calcPrimeFactorsJoinRepeated(number);
+				.getPrimeFactorsAsExponentNumbers(number);
 		int count = 1;
 		for (Number n : primeFactors) {
 			count *= (n.getExponent() + 1);
@@ -158,12 +161,23 @@ public class PrimeNumbers {
 					"PrimerNumbers.getDivisors( n ) when n < 1");
 		}
 		List<Number> primeFactors = PrimeNumbers
-				.calcPrimeFactorsJoinRepeated(number);
+				.getPrimeFactorsAsExponentNumbers(number);
 
 		LinkedList<Long> list = new LinkedList<Long>();
 		list.add(1L);
 
 		return getDivisorsRecursive(primeFactors, list);
+	}
+
+	public static List<Long> getProperDivisors(long number) {
+		List<Long> divisors = getDivisors(number);
+		// I'm not 100% sure if the number itself is always at the end
+		if (divisors.get(divisors.size() - 1).longValue() == number) {
+			divisors.remove(divisors.size() - 1);
+		} else {
+			divisors.remove(new Long(number));
+		}
+		return divisors;
 	}
 
 	private static List<Long> getDivisorsRecursive(List<Number> primeFactors,
