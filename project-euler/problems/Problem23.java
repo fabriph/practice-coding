@@ -16,6 +16,8 @@ public class Problem23 {
 
 		// Brute force approach. It takes too long.
 		// TODO code a better(faster and more intelligent) way, there are many.
+		// TODO maybe I can create all the combinations that are less than 28123
+		// and then find out the missing ones.
 		for (long number = 1; number <= 28123; number++) {
 			System.out.println(number + "?");
 			boolean canBeWritenAsSum = false;
