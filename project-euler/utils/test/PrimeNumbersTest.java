@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.junit.runner.manipulation.Sorter;
 
 import utils.PrimeNumbers;
 
@@ -138,11 +137,22 @@ public class PrimeNumbersTest extends TestCase {
 		list.add(6L);
 		list.add(12L);
 		assertEquals(list, PrimeNumbers.getDivisors(12));
-		
+
 		list = new LinkedList<Long>();
 		list.add(1L);
 		list.add(17L);
 		assertEquals(list, PrimeNumbers.getDivisors(17));
 	}
 
+	@Test
+	public void testIsPrime() {
+		assertFalse(PrimeNumbers.isPrime(-10));
+		assertFalse(PrimeNumbers.isPrime(50));
+		assertFalse(PrimeNumbers.isPrime(13338));
+
+		assertTrue(PrimeNumbers.isPrime(2));
+		assertTrue(PrimeNumbers.isPrime(3));
+		assertTrue(PrimeNumbers.isPrime(53));
+		assertTrue(PrimeNumbers.isPrime(13337));
+	}
 }
