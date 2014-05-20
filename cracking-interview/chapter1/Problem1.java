@@ -6,7 +6,7 @@ public class Problem1 {
 	 * I'm assuming that the string is in ASCII, not Unicode or others.
 	 * 
 	 * If no additional data structure can be use, we can do a N^2 comparison,
-	 * every with every. Or sory the string and check for duplicated easier.
+	 * every with every. Or sort the string and check for duplicated easier.
 	 */
 	public static void main(String args[]) {
 		String input = "abcde";
