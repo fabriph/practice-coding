@@ -45,10 +45,23 @@ class PrimeNumbersHolder:
 		if number < 2:
 			return False
 		if self.matrix[-1][-1] < number:
-			return False # should raise an exception
+			return False # must raise an exception
 		return self.binarySearchFirstDimension(0, len(self.matrix) - 1, number)
+
+	def getIndexOfLastPrime(self):
+		return self.MAX_COL * (len(self.matrix) - 1) + len(self.matrix[-1]) - 1
+
+	def getPrime(self, index):
+		if index > self.getIndexOfLastPrime():
+			return -1 # must raise exception
+		row = index / self.MAX_COL
+		col = index % self.MAX_COL
+		return self.matrix[row][col]
 
 	def printed(self):
 		for x in range(0, len(self.matrix)):
 			print x, " ", self.matrix[x]
 		print
+
+	def getBiggestPrime(self):
+		return self.matrix[-1][-1]
