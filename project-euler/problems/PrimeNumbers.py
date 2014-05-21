@@ -1,11 +1,12 @@
 import numpy
 
-class PrimeNumbersHolder:
+class PrimeNumbersHandler:
 	MAX_COL = 1000
 	MAX_ROW = 10
 	STEP_GROWING_ROW = 5
 	matrix = None
-	def getInstance(self):
+	def __init__(self):
+	#def getInstance(self):
 		self.matrix = [[None for i in range(self.MAX_COL)] for j in range(self.MAX_ROW)]
 		current_col = 0
 		current_row = 0
