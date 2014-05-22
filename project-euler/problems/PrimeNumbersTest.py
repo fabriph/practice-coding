@@ -1,7 +1,7 @@
 import PrimeNumbers
 
 def test(primes, number, expected):
-	print "OK" if expected == primes.isPrime(number) else "Fail in ", number
+	print "OK" if expected == primes.is_prime(number) else "Fail in ", number
 
 primes = PrimeNumbers.PrimeNumbers()
 test(primes, -1, False)
@@ -32,7 +32,7 @@ test(primes, 14428451, True)
 test(primes, 15485863, True)
 
 try:
-    primes.getPrime(10**15)
+    primes.get_prime(10**15)
 except:
     print "index too big: OK"
 else:

@@ -1,10 +1,10 @@
-def nextUnused(used, current):
+def next_unused(used, current):
 	for i in range(current + 1, current + len(used) + 1):
 		if not used[i % len(used)]:
 			return i % len(used)
 	raise Exception("Permutations: Unexpected internal library error")
 
-def doPermutations(elements, used, part, only_odd_numbers):
+def do_permutations(elements, used, part, only_odd_numbers):
 	first_unused = -1
 	for i in range(len(used)):
 		if not used[i]:
@@ -23,14 +23,14 @@ def doPermutations(elements, used, part, only_odd_numbers):
 		current = first_unused
 		while current != -1:
 			used[current] = True
-			result.extend(doPermutations(elements, used, part+elements[current], only_odd_numbers))
+			result.extend(do_permutations(elements, used, part+elements[current], only_odd_numbers))
 			used[current] = False
 			# find next element
-			current = nextUnused(used, current)
+			current = next_unused(used, current)
 			if current == first_unused:
 				break
 		return result
 
-def buildAllPermutations(elements, only_odd_numbers = False):
+def build_all_permutations(elements, only_odd_numbers = False):
 	used = [False for x in range(len(elements))]
-	return doPermutations(elements, used, "", only_odd_numbers)
+	return do_permutations(elements, used, "", only_odd_numbers)

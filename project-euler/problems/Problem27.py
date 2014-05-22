@@ -11,7 +11,7 @@ def main():
 		print a
 		for b in range(-999,1000):
 			n = 0
-			while primes.isPrime(evaluatePolinomial(a, b, n)):
+			while primes.is_prime(evaluatePolinomial(a, b, n)):
 				n += 1
 				if max < n:
 					max = n
