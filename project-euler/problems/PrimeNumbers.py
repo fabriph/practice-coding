@@ -6,7 +6,6 @@ class PrimeNumbersHandler:
 	STEP_GROWING_ROW = 5
 	matrix = None
 	def __init__(self):
-	#def getInstance(self):
 		self.matrix = [[None for i in range(self.MAX_COL)] for j in range(self.MAX_ROW)]
 		current_col = 0
 		current_row = 0
