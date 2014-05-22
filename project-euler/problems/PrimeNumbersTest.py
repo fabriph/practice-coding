@@ -5,8 +5,9 @@ def test(primes, number, expected):
 
 primes = PrimeNumbers.PrimeNumbersHandler()
 test(primes, -1, False)
-test(primes, 1000000000000, False)
 test(primes, 70000, False)
+test(primes, 700000000, False)
+test(primes, 1000000000000, False)
 test(primes, 3, True)
 test(primes, 5, True)
 test(primes, 7, True)
@@ -19,3 +20,20 @@ test(primes, 605147, True)
 test(primes, 891101, True)
 test(primes, 1000003, True)
 test(primes, 1000099, True)
+test(primes, 1000117, True)
+test(primes, 1000121, True)
+test(primes, 1000187, True)
+test(primes, 3156649, True)
+test(primes, 5758513, True)
+test(primes, 7897063, True)
+test(primes, 10291223, True)
+test(primes, 12616231, True)
+test(primes, 14428451, True)
+test(primes, 15485863, True)
+
+try:
+    primes.getPrime(10**15)
+except:
+    print "index too big: OK"
+else:
+    print "Behavour not expected"

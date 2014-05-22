@@ -41,11 +41,22 @@ class PrimeNumbersHandler:
 		else:
 			return self.binarySearchFirstDimension(mid + 1, end, number)
 
+	def isPrimeDivisionCheck(self, number):
+		limit = int(number**0.5) + 1
+		i = 0
+		while self.getPrime(i) < limit:
+			if number % self.getPrime(i) == 0:
+				return False
+			i += 1
+		return True
+
 	def isPrime(self, number):
 		if number < 2:
 			return False
+		if self.matrix[-1][-1]**2 <= number:
+			raise Exception("Prime Numbers: isPrime() out of reach")
 		if self.matrix[-1][-1] < number:
-			return False # must raise an exception
+			return self.isPrimeDivisionCheck(number)
 		return self.binarySearchFirstDimension(0, len(self.matrix) - 1, number)
 
 	def getIndexOfLastPrime(self):
@@ -53,7 +64,7 @@ class PrimeNumbersHandler:
 
 	def getPrime(self, index):
 		if index > self.getIndexOfLastPrime():
-			return -1 # must raise exception
+			raise Exception("Prime Numbers: getPrime() index too big")
 		row = index / self.MAX_COL
 		col = index % self.MAX_COL
 		return self.matrix[row][col]
