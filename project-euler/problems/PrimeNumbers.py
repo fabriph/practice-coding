@@ -1,6 +1,6 @@
 import numpy
 
-class PrimeNumbersHandler:
+class PrimeNumbers:
 	MAX_COL = 1000
 	MAX_ROW = 10
 	STEP_GROWING_ROW = 5

@@ -3,7 +3,7 @@ import PrimeNumbers
 def test(primes, number, expected):
 	print "OK" if expected == primes.isPrime(number) else "Fail in ", number
 
-primes = PrimeNumbers.PrimeNumbersHandler()
+primes = PrimeNumbers.PrimeNumbers()
 test(primes, -1, False)
 test(primes, 70000, False)
 test(primes, 700000000, False)

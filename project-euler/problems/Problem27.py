@@ -3,7 +3,7 @@ def evaluatePolinomial(a, b, n):
 	return n * (n + a) + b
 
 def main():
-	primes = PrimeNumbers.PrimeNumbersHandler()
+	primes = PrimeNumbers.PrimeNumbers()
 	max = 0
 	max_a = None
 	max_b = None
