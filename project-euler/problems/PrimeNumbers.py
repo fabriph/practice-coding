@@ -41,7 +41,7 @@ class PrimeNumbers:
 		else:
 			return self.__binary_search_first_dimension(mid + 1, end, number)
 
-	def __isPrime_division_check(self, number):
+	def __is_prime_division_check(self, number):
 		limit = int(number**0.5) + 1
 		i = 0
 		while self.get_prime(i) < limit:
@@ -56,7 +56,7 @@ class PrimeNumbers:
 		if self.matrix[-1][-1]**2 <= number:
 			raise Exception("Prime Numbers: isPrime() out of reach")
 		if self.matrix[-1][-1] < number:
-			return self.__isPrime_division_check(number)
+			return self.__is_prime_division_check(number)
 		return self.__binary_search_first_dimension(0, len(self.matrix) - 1, number)
 
 	def get_index_of_last_prime(self):
@@ -77,12 +77,31 @@ class PrimeNumbers:
 	def get_biggest_prime(self):
 		return self.matrix[-1][-1]
 
-	def factorize(number):
-		return number
+	def factorize(self, number):
+		i = 0
+		divisors = []
+		prime = self.get_prime(0)
+		while prime <= number:
+			# maybe optimize: check if temp is prime
+			if number % prime == 0:
+				number = number / prime
+				divisors.append(prime)
+			else:
+				i += 1
+				prime = self.get_prime(i)
+		return divisors
 
-	def __colapse(number):
-		return number
+	def __colapse(self, factors):
+		previous = 0
+		output = []
+		for x in factors:
+			if x == previous:
+				output[-1] = output[-1] * x
+			else:
+				output.append(x)
+				previous = x
+		return output
 
-	def factorize_colapsed(number):
-		temp = factorize(number)
-		return __colapse(temp)
+	def factorize_colapsed(self, number):
+		factors = self.factorize(number)
+		return self.__colapse(factors)

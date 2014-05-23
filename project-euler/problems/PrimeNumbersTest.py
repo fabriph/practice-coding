@@ -37,3 +37,7 @@ except:
     print "index too big: OK"
 else:
     print "Behavour not expected"
+
+print primes.factorize(2)
+print primes.factorize(3)
+print primes.factorize(226844352)
