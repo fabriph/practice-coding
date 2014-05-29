@@ -1,3 +1,8 @@
+""" TODO: Imrpove algorith to cope with permutation of repeated elements:
+If I have permutate 1 1 2
+output should be: 112, 121, 211
+currently woudl output: 112, 121, 112, 121, 211, '211
+"""
 def next_unused(used, current):
 	for i in range(current + 1, current + len(used) + 1):
 		if not used[i % len(used)]:
@@ -23,7 +28,7 @@ def do_permutations(elements, used, part, only_odd_numbers):
 		current = first_unused
 		while current != -1:
 			used[current] = True
-			result.extend(do_permutations(elements, used, part+elements[current], only_odd_numbers))
+			result.extend(do_permutations(elements, used, part + elements[current], only_odd_numbers))
 			used[current] = False
 			# find next element
 			current = next_unused(used, current)
