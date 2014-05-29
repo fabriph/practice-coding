@@ -23,6 +23,11 @@ class PrimeNumbers:
 		while self.matrix[-1][-1] == None:
 			del self.matrix[-1][-1]
 
+	@staticmethod
+	def __check_type(variable):
+		if not type(variable) is int:
+			raise Exception("Input variable must be integer")
+
 	def __binary_search_second_dimension(self, list, number):
 		if len(list) == 1:
 			return number == list[0]
@@ -51,6 +56,7 @@ class PrimeNumbers:
 		return True
 
 	def is_prime(self, number):
+		self.__check_type(number)
 		if number < 2:
 			return False
 		if self.matrix[-1][-1]**2 <= number:
@@ -63,6 +69,7 @@ class PrimeNumbers:
 		return self.MAX_COL * (len(self.matrix) - 1) + len(self.matrix[-1]) - 1
 
 	def get_prime(self, index):
+		self.__check_type(index)
 		if index > self.get_index_of_last_prime():
 			raise Exception("Prime Numbers: getPrime() index too big")
 		row = index / self.MAX_COL
@@ -78,6 +85,7 @@ class PrimeNumbers:
 		return self.matrix[-1][-1]
 
 	def factorize(self, number):
+		self.__check_type(number)
 		i = 0
 		divisors = []
 		prime = self.get_prime(0)
@@ -103,5 +111,6 @@ class PrimeNumbers:
 		return output
 
 	def factorize_colapsed(self, number):
+		self.__check_type(number)
 		factors = self.factorize(number)
 		return self.__colapse(factors)

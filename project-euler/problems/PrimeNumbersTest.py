@@ -41,3 +41,10 @@ else:
 print primes.factorize(2)
 print primes.factorize(3)
 print primes.factorize(226844352)
+
+try:
+    primes.is_prime("79")
+except:
+    print "input parameter not integer: OK"
+else:
+    print "Behavour not expected: input variable is not integer"
