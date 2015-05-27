@@ -33,5 +33,5 @@ int main() {
   printf("Position %d contains %d", 3, get(myVector, 3));
 }
 
-Later on we're gonna add more primitives liek append.
+Later on we're gonna add more primitives like append.
 
