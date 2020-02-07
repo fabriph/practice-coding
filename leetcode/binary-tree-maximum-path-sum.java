@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/binary-tree-maximum-path-sum/submissions/
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -30,13 +30,13 @@ class Solution {
             return node.val;
         }
 
-        // not a root, then one of four options
-        // 1 - form path with right or left child
+        // not a leaf, then one of four options
+        // 1 - from parent to left child
         long leftPath = Integer.MIN_VALUE;
         if (node.left != null) {
             leftPath = findMaxPath(node.left);
         }
-        // 2 - form path just by itself
+        // 2 - form parent to right child
         long rightPath = Integer.MIN_VALUE;
         if (node.right != null) {
             rightPath = findMaxPath(node.right);
