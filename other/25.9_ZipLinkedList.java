@@ -1,5 +1,6 @@
 /*
- * Zip linked list from Elements of Programming Interviews
+ * Book: Elements of Programming Interviews
+ * Exercise 25.9 Zip linked list
  */
 
 import java.io.*;
