@@ -1,20 +1,29 @@
 /**
 https://leetcode.com/problems/stream-of-characters
 
-Gets time limit exceeded on a really extreme test case "aaaa.....aaaab"
-Possible improvements:
- - deleting from the middle in the linked list of iterators is slow.
- - maybe the creation of the trie is not as fast as it can, and can be improved
-*/
+n: # words
+k: length of longest word
 
+Time build: O(n * k)
+Time query: O(k)
+Space: O(n * k)
+
+Other alternative:
+build a suffix tree
+when a query arrives,
+either use a String builder to keep track of latest chars or
+a circular buffer (with length of longest word in the suffix tree)
+this avoids having a lot of iterators, but the time complexity to solve a single query is the same
+
+*/
 class StreamChecker {
     Node root;
-    List<Node> iterators;
+    Node[] iterators;
 
     public StreamChecker(String[] words) {
-        iterators = new LinkedList<>();
         root = new Node();
         
+        int longestWord = 0;
         for (String w : words) {
             Node current = root;
             char[] chars = w.toCharArray();
@@ -24,30 +33,36 @@ class StreamChecker {
                         chars[i],
                         /* isWord =*/ chars.length == (i + 1));
             }
+            longestWord = Math.max(longestWord, chars.length);
         }
+        
+        iterators = new Node[longestWord + 2];
         //System.out.println("trie " + root);
     }
     
     public boolean query(char letter) {
         // add a new iterator at root
-        iterators.add(root);
+        iterators[0] = root;
         
         // advance all iterators (discarding the ones that go to null)
-        int i = 0;
         boolean result = false;
-        while (i < iterators.size()) {
-            Node it = iterators.get(i);
-            
-            it = it.getNext(letter);
-            iterators.set(i, it);
-            if (it == null) {
-                iterators.remove(i);
+        Node it;
+        for (int i = iterators.length - 2; i >= 0; --i) {
+            if (iterators[i] == null) {
                 continue;
             }
+
+            it = iterators[i];
+            iterators[i] = null;
+
+            it = it.getNext(letter);
+            if (it == null) {
+                continue;
+            }
+            iterators[i + 1] = it;
             if (it.isWord) {
                 result = true;
             }
-            i++;
         }
         return result;
     }
