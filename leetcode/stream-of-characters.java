@@ -1,5 +1,7 @@
 /**
 https://leetcode.com/problems/stream-of-characters
+Runtime: 276 ms, faster than 32.70% of Java online submissions for Stream of Characters.
+Memory Usage: 72.6 MB, less than 100.00% of Java online submissions for Stream of Characters.
 
 n: # words
 k: length of longest word
