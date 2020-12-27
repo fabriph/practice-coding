@@ -16,10 +16,13 @@ class FooCopyable {
         FooCopyable& operator=(FooCopyable&&) = delete;
 
         std::string name() const {return name_;};
+        void name(std::string name) {name_ = name;};
+
         // No need to be const, but doing it because of an IDE odd warninig.
         int id() const {return id_;};
-        std::vector<std::string> data() const {return data_;};
+        void id(int id) {id_ = id;};
 
+        std::vector<std::string> data() const {return data_;};
         void Append(std::string text);
 
         std::string ToString() const;

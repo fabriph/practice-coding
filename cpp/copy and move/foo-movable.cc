@@ -1,5 +1,5 @@
 
-#include "FooMovable.h"
+#include "foo-movable.h"
 
 #include <iostream>
 #include <numeric>

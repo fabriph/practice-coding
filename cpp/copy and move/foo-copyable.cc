@@ -1,5 +1,5 @@
 
-#include "FooCopyable.h"
+#include "foo-copyable.h"
 
 #include <iostream>
 #include <numeric>
