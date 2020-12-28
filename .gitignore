@@ -1,4 +1,4 @@
 /bin
 *.pyc
-cpp/copy and move/copy_and_move.bin
+*.bin
 .venv
