@@ -7,7 +7,7 @@
 
 class FooCopyableAndMovable {
     public:
-        FooCopyableAndMovable(const std::string name) : name_(name), id_(++next_available_id), data_() {}
+        FooCopyableAndMovable(const std::string name) : name_(name), id_(++next_available_id_), data_() {}
         // Copyable
         FooCopyableAndMovable(const FooCopyableAndMovable& other);
         FooCopyableAndMovable operator=(const FooCopyableAndMovable& other);
@@ -28,8 +28,10 @@ class FooCopyableAndMovable {
         std::string ToString() const;
         friend std::ostream& operator<<(std::ostream& os, const FooCopyableAndMovable& fc);
 
+        static int next_available_id() {return FooCopyableAndMovable::next_available_id_;};
+
     private:
-        static int next_available_id;
+        static int next_available_id_;
 
         std::string name_;
         int id_;

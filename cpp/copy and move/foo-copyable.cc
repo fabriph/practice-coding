@@ -36,7 +36,7 @@ std::string FooCopyable::ToString() const {
     // TODO: this is bad.
     std::ostringstream os;
     std::copy(data_.begin(), data_.end(), std::ostream_iterator<std::string>(os, ","));
-    return "FooCopyable {name:" + name_ + " id:" + std::to_string(id_) + " " +
+    return "FooCopyable {name:" + name_ + " id:" + std::to_string(id_) + " data:" +
         os.str() + "}";
 }
 

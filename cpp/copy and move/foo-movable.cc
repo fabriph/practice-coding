@@ -39,7 +39,7 @@ std::string FooMovable::ToString() const {
     // TODO: this is bad.
     std::ostringstream os;
     std::copy(data_.begin(), data_.end(), std::ostream_iterator<std::string>(os, ","));
-    return "FooMovable {name:" + name_ + " id:" + std::to_string(id_) + " " +
+    return "FooMovable {name:" + name_ + " id:" + std::to_string(id_) + " data:" +
         os.str() + "}";
 }
 

@@ -1,5 +1,9 @@
 
 #include <iostream>
+#include <numeric>
+#include <sstream>
+#include <iterator>
+#include <string>
 
 #include "foo-copyable.h"
 #include "foo-copyable-and-movable.h"
@@ -158,37 +162,28 @@ void playground_copy_and_move_4() {
 }
 
 FooCopyableAndMovable get_new_foo() {
-    FooCopyableAndMovable value("a");
-    value.Append("1");
-    value.Append("2");
+    FooCopyableAndMovable foo("a");
+    foo.Append("1");
 
-    std::cout << "foo built\n";
-    return value;
-}
-
-std::vector<FooCopyableAndMovable> get_new_vector() {
-    std::vector<FooCopyableAndMovable> vector;
-    vector.push_back(FooCopyableAndMovable("a"));
-    vector.push_back(FooCopyableAndMovable("b"));
-
-    std::cout << "vector built\n";
-    return vector;
+    std::cout << "foo built: " << foo.ToString() << std::endl;
+    return foo;
 }
 
 /* named return value optimization (NRVO)
  * prints:
 
-foo check nrvo enabled
+foo_check_nrvo()
 ** assigning **
-foo built
+foo built: FooCopyableAndMovable {name:a id:1 data:1,}
 ** assigned **
 ** moving **
-foo built
-FooCopyableAndMovable: Move Assign Operator
+foo built: FooCopyableAndMovable {name:a id:3 data:1,}
+FooCopyableAndMovable: Move Assign Operator fromFooCopyableAndMovable {name:a id:3 data:1,}
 ** moved **
+next available id: 3
 */
 void foo_check_nrvo() {
-    std::cout << "\nfoo check nrvo enabled\n";
+    std::cout << "\nfoo_check_nrvo()\n";
 
     std::cout << "** assigning **\n";
     FooCopyableAndMovable assigned = get_new_foo();
@@ -200,39 +195,67 @@ void foo_check_nrvo() {
     std::cout << "** moving **\n";
     moved = get_new_foo();
     std::cout << "** moved **\n";
+    std::cout << "next available id: " << FooCopyableAndMovable::next_available_id() << "\n";
+}
+
+std::vector<FooCopyableAndMovable> get_new_vector() {
+    std::cout << "  get_new_vector()\n";
+    std::vector<FooCopyableAndMovable> vector;
+    std::cout << "    1\n";
+    vector.push_back(FooCopyableAndMovable("a"));
+    std::cout << "    2\n";
+    vector.push_back(FooCopyableAndMovable("b"));
+    std::cout << "    3\n";
+
+    std::ostringstream os;
+    for(std::vector<FooCopyableAndMovable>::iterator it = vector.begin(); it != vector.end(); ++it) {
+        os << it->ToString() << ", ";
+    }
+    std::cout << "    vector built: " << os.str() << std::endl;
+    return vector;
 }
 
 /* named return value optimization (NRVO)
  * prints:
 
-vector check nrvo enabled
+vector_check_nrvo()
 ** assigning **
-FooCopyableAndMovable: Move Constructor
-FooCopyableAndMovable: Move Constructor
-FooCopyableAndMovable: Copy Constructor
-vector built
+  get_new_vector()
+    1
+FooCopyableAndMovable: Move Constructor from FooCopyableAndMovable {name:a id:4 data:}
+    2
+FooCopyableAndMovable: Move Constructor from FooCopyableAndMovable {name:b id:5 data:}
+FooCopyableAndMovable: Copy Constructor of FooCopyableAndMovable {name:a id:4 data:}
+    3
+    vector built: FooCopyableAndMovable {name:a id:6 data:}, FooCopyableAndMovable {name:b id:5 data:}, 
 ** assigned **
-FooCopyableAndMovable: Move Constructor
+FooCopyableAndMovable: Move Constructor from FooCopyableAndMovable {name:to_be_dropped id:7 data:}
 ** moving **
-FooCopyableAndMovable: Move Constructor
-FooCopyableAndMovable: Move Constructor
-FooCopyableAndMovable: Copy Constructor
-vector built
+  get_new_vector()
+    1
+FooCopyableAndMovable: Move Constructor from FooCopyableAndMovable {name:a id:8 data:}
+    2
+FooCopyableAndMovable: Move Constructor from FooCopyableAndMovable {name:b id:9 data:}
+FooCopyableAndMovable: Copy Constructor of FooCopyableAndMovable {name:a id:8 data:}
+    3
+    vector built: FooCopyableAndMovable {name:a id:10 data:}, FooCopyableAndMovable {name:b id:9 data:}, 
 ** moved **
+next available id: 10
 */
 void vector_check_nrvo() {
-    std::cout << "\nvector check nrvo enabled\n";
+    std::cout << "\nvector_check_nrvo()\n";
 
     std::cout << "** assigning **\n";
     std::vector<FooCopyableAndMovable> assigned = get_new_vector();
     std::cout << "** assigned **\n";
 
     std::vector<FooCopyableAndMovable> moved;
-    moved.push_back(FooCopyableAndMovable("to be dropped"));
+    moved.push_back(FooCopyableAndMovable("to_be_dropped"));
 
     std::cout << "** moving **\n";
     moved = get_new_vector();
     std::cout << "** moved **\n";
+    std::cout << "next available id: " << FooCopyableAndMovable::next_available_id() << "\n";
 }
 
 int main() {
