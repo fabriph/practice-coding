@@ -2,9 +2,9 @@
 #include "foo-copyable-and-movable.h"
 
 #include <iostream>
+#include <iterator>
 #include <numeric>
 #include <sstream>
-#include <iterator>
 #include <string>
 
 int FooCopyableAndMovable::next_available_id_ = 0;
